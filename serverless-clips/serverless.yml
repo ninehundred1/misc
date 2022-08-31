@@ -1,0 +1,26 @@
+service: clip-video
+
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: python3.8
+
+functions:
+  create_event_clip:
+    handler: handler.create_event_clip
+    memorySize: 2048
+    timeout: 40
+    events:
+      - http:
+          path: clip_video
+          method: get
+          request:
+              parameters:
+                querystrings:
+                  video_link: true
+                  event_date: true
+                  event_time: true
+                  seconds_prior: true
+                  seconds_after: true
+
